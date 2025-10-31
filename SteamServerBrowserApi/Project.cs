@@ -46,10 +46,7 @@ public class Project
     };
     
     private readonly Dictionary<string, SteamQuery.GameServer> _gameServerCache = [];
-    private readonly IMemoryCache _cache = new MemoryCache(new MemoryCacheOptions()
-    {
-        SizeLimit = 1000
-    });
+    private readonly IMemoryCache _cache = new MemoryCache(new MemoryCacheOptions());
 
     public IHandlerBuilder Setup()
     {

@@ -169,7 +169,9 @@ public class SteamWrapper
 
     private static void WriteAuthJson(SteamAuthenticationData data)
     {
-        File.WriteAllText(AuthFilename, JsonSerializer.Serialize(data, Project.SerializerOptions));
+        var json = JsonSerializer.Serialize(data, Project.SerializerOptions);
+        File.WriteAllText(AuthFilename, json);
+        Console.WriteLine($"[WriteAuthJson] Wrote to file: {AuthFilename}");
     }
 
     private static void DrawQrCode( QrAuthSession authSession )
@@ -189,7 +191,7 @@ public class SteamWrapper
 
     private void OnDisconnected(SteamClient.DisconnectedCallback cb)
     {
-        Console.WriteLine("Disconnected from Steam");
+        Console.WriteLine($"Disconnected from Steam ({nameof(cb.UserInitiated)}: {cb.UserInitiated})");
         _isRunning = false;
     }
 
@@ -251,8 +253,8 @@ public class SteamWrapper
     private static string GetBasePath()
     {
         var path = Environment.GetCommandLineArgs().Any(e => e == "docker")
-            ? "/app/config/"
-            : "./config";
+            ? "/data/"
+            : "./data";
         if (!Directory.Exists(path))
             Directory.CreateDirectory(path);
         return path;
