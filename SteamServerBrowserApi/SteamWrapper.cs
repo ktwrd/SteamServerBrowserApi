@@ -27,6 +27,11 @@ public class SteamWrapper
 {
     public SteamWrapper()
     {
+        Console.WriteLine("==================== Configuration Files ====================");
+        Console.WriteLine($"           Auth: {AuthFilename}");
+        Console.WriteLine($"        Cell ID: {CellIdFilename}");
+        Console.WriteLine($"    Server List: {ServerListFilename}");
+        Console.WriteLine();
 #if DEBUG
         DebugLog.AddListener(new SteamDebugListener());
         DebugLog.Enabled = true;
@@ -242,9 +247,20 @@ public class SteamWrapper
         return cellId;
     }
 
-    private const string AuthFilename = "./config/auth.json";
-    private const string CellIdFilename = "./data/cellid.txt";
-    private const string ServerListFilename = "./data/servers_list.bin";
+
+    private static string GetBasePath()
+    {
+        var path = Environment.GetCommandLineArgs().Any(e => e == "docker")
+            ? "/config/"
+            : "./config";
+        if (!Directory.Exists(path))
+            Directory.CreateDirectory(path);
+        return path;
+    }
+
+    private static string CellIdFilename => Path.Join(GetBasePath(), "cellid.txt");
+    private static string ServerListFilename => Path.Join(GetBasePath(), "servers_list.bin");
+    private static string AuthFilename => Path.Join(GetBasePath(), "auth.json");
 }
 
 public class SteamDebugListener : IDebugListener
