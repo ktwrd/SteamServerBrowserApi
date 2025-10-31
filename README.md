@@ -15,7 +15,7 @@ To build this project from source, checkout this repository and execute
 the following commands in your terminal. This requires the
 [.NET SDK](https://dotnet.microsoft.com/download) to be installed.
 
-```
+```bash
 cd SteamServerBrowserApi
 dotnet run
 ```
@@ -28,10 +28,15 @@ To run this project with [Docker](https://www.docker.com/), run the
 following commands in your terminal (and adjust the first line
 depending on your platform).
 
-```
+```bash
 docker build -t SteamServerBrowserApi .
 
-docker run -p 8080:8080 SteamServerBrowserApi
+docker run -v ./data:/data -p 8080:8080 SteamServerBrowserApi
+```
+
+You can also run the latest image from the GitHub Container Registry
+```bash
+docker run -v ./data:/data -p 8080:8080 ghcr.io/ktwrd/steam-server-browser-api:latest
 ```
 
 ## About
