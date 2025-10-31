@@ -251,7 +251,7 @@ public class SteamWrapper
     private static string GetBasePath()
     {
         var path = Environment.GetCommandLineArgs().Any(e => e == "docker")
-            ? "/config/"
+            ? "/app/config/"
             : "./config";
         if (!Directory.Exists(path))
             Directory.CreateDirectory(path);
