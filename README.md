@@ -1,6 +1,6 @@
 # Steam Server Browser API
 
-Rest API Server for accessing and querying the Steam for game servers.
+Rest API Server for accessing and querying Steam for game servers.
 
 - You can get Source Engine Server information at the endpoint `/server/info`
     - Query protocol can be found in the Valve Developer Wiki: [https://developer.valvesoftware.com/wiki/Master_Server_Query_Protocol#Filter](https://developer.valvesoftware.com/wiki/Master_Server_Query_Protocol#Filter)
@@ -8,9 +8,6 @@ Rest API Server for accessing and querying the Steam for game servers.
 - Swagger UI is available at `/swagger/`
 
 On first launch, a QR code will be visible in the console. Scan it with the Steam App (or use the URL) to login. Your username & refresh token will be stored in `auth.json`.
-
->[!IMPORTANT]
-> Rate limiting has not been implemented, but caching has been implemented.
 
 ## Development
 
