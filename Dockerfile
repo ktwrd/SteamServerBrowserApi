@@ -1,6 +1,7 @@
 #==== BASE
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 WORKDIR /app
+VOLUME ["/data"]
 RUN mkdir /data
 # Creates a non-root user with an explicit UID and adds permission to access the /app folder
 # For more info, please refer to https://aka.ms/vscode-docker-dotnet-configure-containers
@@ -10,7 +11,7 @@ EXPOSE 8080
 
 #==== BUILD
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
-ARG BUILD_CONFIGURATION=Release
+ARG BUILD_CONFIGURATION=Debug
 WORKDIR /src
 COPY ["SteamServerBrowserApi/SteamServerBrowserApi.csproj", "SteamServerBrowserApi/"]
 RUN dotnet restore "SteamServerBrowserApi/SteamServerBrowserApi.csproj"
@@ -20,7 +21,7 @@ RUN dotnet build "SteamServerBrowserApi.csproj" -c $BUILD_CONFIGURATION -o /app/
 
 #==== PUBLISH
 FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
+ARG BUILD_CONFIGURATION=Debug
 RUN dotnet publish "SteamServerBrowserApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=true
 
 #==== FINAL
