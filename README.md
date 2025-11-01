@@ -36,6 +36,8 @@ docker run -v ./data:/data -p 8080:8080 SteamServerBrowserApi
 
 You can also run the latest image from the GitHub Container Registry
 ```bash
+mkdir ./data
+sudo chmod a+rwx ./data
 docker run -v ./data:/data -p 8080:8080 ghcr.io/ktwrd/steam-server-browser-api:latest
 ```
 
